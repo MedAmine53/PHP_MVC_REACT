@@ -12,15 +12,15 @@ use PDO;
 
         public function connect()
         {
-        try {
-            $db = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
-            $db->exec("set names utf8");
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $db;
-            
-        } catch (PDOException $e) {
-            echo "Connexion Failed ! ". $e->getMessage();
-        }
+            try {
+                $db = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+                $db->exec("set names utf8");
+                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                return $db;
+                
+            } catch (PDOException $e) {
+                echo "Connexion Failed ! ". $e->getMessage();
+            }
         }
     }
 
