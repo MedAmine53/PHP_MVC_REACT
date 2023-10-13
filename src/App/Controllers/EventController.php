@@ -13,13 +13,12 @@ class EventController
         $this->model = new Event;
     }
 
-    public function index()
+    public function index() 
     {
         $events = $this->model->fetchAllEvents();
         echo json_encode([
             'events' => $events
         ], JSON_PRETTY_PRINT);
-
         return $events;
     }
-}
+}        
