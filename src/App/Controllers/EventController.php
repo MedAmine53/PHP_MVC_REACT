@@ -16,9 +16,20 @@ class EventController
     public function index() 
     {
         $events = $this->model->fetchAllEvents();
-        echo json_encode([
-            'events' => $events
-        ], JSON_PRETTY_PRINT);
+        echo json_encode( ['events' => $events] );
         return $events;
+    }
+
+    public function show($event_id)
+    {
+        $event = $this->model->fetchEvent($event_id);
+        echo json_encode( ['event' => $event ] );
+        return $event;
+    }
+
+    public function eventCategory($category_id)
+    {
+        $events = $this->model->fetchEventByCategory($category_id);
+        echo json_encode( ['events' => $events] );
     }
 }        

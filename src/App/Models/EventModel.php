@@ -21,7 +21,7 @@ class EventModel
         $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($events as $event) {
             $category = $this->fetchEventCategory($event);
-            $data[] = ['event' => $event, 'category' => $category];
+            $data = ['event' => $event, 'category' => $category];
         }
         return $data;
     }
@@ -48,7 +48,25 @@ class EventModel
                 'message' => 'The event you are looking for does not exist',
             ];
         }
+        $category = $this->fetchEventCategory($event) ;
+        $data = ['event' => $event, 'category' => $category];
+        return $data;
+    }
 
-        return $event;
+    public function fetchEventByCategory($category_id)
+    {   
+        $stmt = $this->conn->prepare("SELECT * FROM events WHERE category_id = :category_id");
+        $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $events = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$events) {
+            http_response_code(404);
+            return $data = [
+                'error'=> true, 
+                'message' => 'No Events Found !',
+            ];
+        }
+        return $events;
     }
 }
+
